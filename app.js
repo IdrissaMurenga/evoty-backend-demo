@@ -22,34 +22,24 @@ const yoga = createYoga({
     context: async ({req}) => {
         const authToken = req?.headers?.authorization?.split('Bearer ')[1]
         console.log(authToken)
-        const contextData = {
-
-        }
+        const contextData = {}
         if (authToken) {
             try {
-            const decoded = jwt.verify(authToken, "idrissa-login-key")
-            let user = await User.findById(decoded?._id)
-            contextData.user = user
-        } catch (error) {
-            console.log(`"TOKEN_VERIFICATION_ERROR", ${error.message}`)
+                const decoded = jwt.verify(authToken, "idrissa-login-key")
+                console.log(decoded)
+                let user = await User.findById(decoded?.id)
+                // console.log(user)
+                contextData.user = user
+                console.log(contextData)
+            } catch (error) {
+                console.log(`"TOKEN_VERIFICATION_ERROR", ${error.message}`)
+            }
         }
-    }
     }
 })
 
 //middleware
 app.use(cors())
-
-// app.use(async (req, res, next) => {
-//     const authToken = req?.headers?.authorization?.split('Bearer ')[1];
-//     try {
-//         const authResult = await verifyToken({ req }); // Verify token
-//         req.user = authResult?.user || null; // Attach user to request if authenticated
-//     } catch (error) {
-//         req.user = null; // Set user as null if token is invalid or missing
-//     }
-//     next();
-// });
 
 app.use('/graphql', yoga)
 

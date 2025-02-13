@@ -7,12 +7,12 @@ import { generateToken } from "../../utils/generateToken.js"
 export const userResolver = {
     Query: {
         user: async (_, __, context) => {
-            // if (!context.user) {
-            //     throw new GraphQLError('Not authenticated', {
-            //         extensions: { code: 'UNAUTHORIZED' },
-            //     });
-            // }
-            // console.log(context.user)
+            if (!context.user) {
+                throw new GraphQLError('Not authenticated', {
+                    extensions: { code: 'UNAUTHORIZED' },
+                });
+            }
+            console.log(context.user)
 
             try {
                 // Fetch user by ID
