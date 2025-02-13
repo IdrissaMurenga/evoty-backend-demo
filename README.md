@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # evoty-backend-demo# evoty-backend-demo
 
 This is a demo backend project for Evoty.
@@ -9,6 +9,7 @@ This is a demo backend project for Evoty.
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Features](#features)
+- [evoty-backend-demo](#evoty-backend-demo)
 
 ## Introduction
 
@@ -21,6 +22,5 @@ This project is a backend server built with Express.js, Mongoose, and GraphQL Yo
 - GraphQL Yoga for GraphQL API
 - CORS support
 - Environment variable configuratio
-=======
+  
 # evoty-backend-demo
->>>>>>> 5c627ba4eb2bb888b58a257baf067077ed777db1
