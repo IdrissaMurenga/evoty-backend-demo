@@ -4,9 +4,9 @@ import express from 'express'
 import mongoose from 'mongoose'
 import { typeDefs } from './graphQL/types/index.js'
 import { createYoga, createSchema } from 'graphql-yoga'
-import { userResolver } from './graphQL/resolvers/userResolver.js'
 import User from './models/userModel.js'
 import jwt from "jsonwebtoken"
+import { resolver } from './graphQL/resolvers/index.js'
 
 // Load environment variables from .env file
 dotenv.config()
@@ -17,24 +17,25 @@ const app = express()
 const yoga = createYoga({
     schema: createSchema({
         typeDefs,
-        resolvers : userResolver
+        resolvers : resolver
     }),
     context: async ({req}) => {
         const authToken = req?.headers?.authorization?.split('Bearer ')[1]
+        console.log('authToken' , authToken)
         console.log(authToken)
         const contextData = {}
         if (authToken) {
             try {
-                const decoded = jwt.verify(authToken, "idrissa-login-key")
-                console.log(decoded)
-                let user = await User.findById(decoded?.id)
-                // console.log(user)
-                contextData.user = user
-                console.log(contextData)
-            } catch (error) {
-                console.log(`"TOKEN_VERIFICATION_ERROR", ${error.message}`)
-            }
+            const decoded = jwt.verify(authToken, "idrissa-login-key")
+            let user = await User.findById(decoded?.id)
+            console.log('user' , user)
+            contextData.user = user
+
+        } catch (error) {
+            console.log(`"TOKEN_VERIFICATION_ERROR", ${error.message}`)
         }
+    }
+    return contextData
     }
 })
 

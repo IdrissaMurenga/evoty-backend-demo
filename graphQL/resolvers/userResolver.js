@@ -4,9 +4,10 @@ import { GraphQLError } from "graphql"
 import { generateToken } from "../../utils/generateToken.js"
 
 
-export const userResolver = {
+export default {
     Query: {
-        user: async (_, __, context) => {
+        user: async (_, {id}, context) => {
+            console.log("user" , context)
             if (!context.user) {
                 throw new GraphQLError('Not authenticated', {
                     extensions: { code: 'UNAUTHORIZED' },
@@ -29,6 +30,27 @@ export const userResolver = {
                     lastName: user.lastName,
                     email: user.email,
                 };
+            } catch (error) {
+                throw new GraphQLError(`Error fetching user: ${error.message}`, {
+                    extensions: { code: 'INTERNAL_SERVER_ERROR' },
+                });
+            }
+        },
+        users: async (_, __, context) => {
+            // console.log("context" , context)
+            // console.log("user" , context.user)
+            if (!context.user) {
+                throw new GraphQLError('Not authenticated', {
+                    extensions: { code: 'UNAUTHORIZED' },
+                });
+            }
+            console.log(context.user)
+
+            try {
+                // Fetch user by ID
+                const users = await User.find();
+                
+                return users;
             } catch (error) {
                 throw new GraphQLError(`Error fetching user: ${error.message}`, {
                     extensions: { code: 'INTERNAL_SERVER_ERROR' },
