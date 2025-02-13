@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "app.js",
   "license": "MIT",
+<<<<<<< HEAD
   "type": "module",
+=======
+>>>>>>> 5c627ba4eb2bb888b58a257baf067077ed777db1
   "scripts": {
     "start": "nodemon app.js",
     "dev": "nodemon app.js",
@@ -16,8 +19,15 @@
     "express": "^4.21.2",
     "graphql": "^16.10.0",
     "graphql-yoga": "^5.10.11",
+<<<<<<< HEAD
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
     "nodemon": "^3.1.9"
   }
+=======
+    "mongoose": "^8.9.5",
+    "nodemon": "^3.1.9"
+  },
+  "type": "module"
+>>>>>>> 5c627ba4eb2bb888b58a257baf067077ed777db1
 }
